@@ -1,0 +1,3 @@
+New File Contents
+
+Hello ! We are in test 1 file...
