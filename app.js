@@ -15,19 +15,26 @@ app.post('/', function (req, res){
     form.parse(req);
 
     form.on('fileBegin', function (name, file){
-        file.path = __dirname + '/uploads/' + file.name;   
+        file.path = __dirname + '/uploads/' + file.name; 
+        console.log("file.path --->>>", file.path);
     });
 
     form.on('file', function (name, file){
         var textData = "New File Contents";
-        prependFile(__dirname + '/uploads/' + file.name, textData+'\n\n', function (err) {
-            if (err) {
-                // Error
-                console.log("Error in appending file:", err)
+        fs.appendFile(file.path, 'new logs............', 'utf8', function(err){
+            if(err){
+                console.log("append error --->>>",err);
             }
-            // Success
-            console.log('Append at start(prepend) was successful.');
+            console.log("Successful append !!!");
         });
+        // prependFile(__dirname + '/uploads/' + file.name, textData+'\n\n', function (err) {
+        //     if (err) {
+        //         // Error
+        //         console.log("Error in appending file:", err)
+        //     }
+        //     // Success
+        //     console.log('Append at start(prepend) was successful.');
+        // });
         // fs.writeFileSync((__dirname + '/uploads/' + file.name), textData, "UTF-8",{
         //     flags: 'ax',
         //     mode: 0o666,
